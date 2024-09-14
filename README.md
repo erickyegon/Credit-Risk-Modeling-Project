@@ -1,83 +1,125 @@
-# <h1 align='center' style='color:blue'> Credit Risk Modeling Project</h1>
+# Insurance Premium Prediction Project
 
-## 1. Introduction
+## Problem Statement
 
-In the rapidly evolving landscape of financial services, accurate credit risk assessment is crucial for the success and stability of lending institutions. This project aims to develop a sophisticated credit risk model for Lauki Finance, a Non-Banking Financial Company (NBFC) based in India, in partnership with AtliQ AI, a leading AI service provider.
+Shield Insurance Company faced challenges in accurately predicting insurance premiums for its customers, particularly for younger age groups (25 and under). The existing model had significant error rates, leading to customer dissatisfaction and operational inefficiencies.
 
-The primary objective of this initiative is to create a robust credit scorecard system that categorizes loan applications into Poor, Average, Good, and Excellent categories, mirroring the widely recognized CIBIL scoring system. This model will enhance Lauki Finance's ability to make informed lending decisions, minimize default risks, and streamline their loan approval process.
+### Key Issues:
+- The overall model accuracy was 92%, but certain customer segments experienced high error rates.
+- 30% of predictions had error margins greater than 10%.
+- Some predictions had error margins as high as 87%.
+- The model performed poorly for customers aged 25 and under, requiring a more tailored solution for this group.
 
-## 2. Background
+---
 
-Lauki Finance, as an NBFC in India, faces the challenge of efficiently assessing credit risk in a competitive market. Traditional methods of credit assessment may be time-consuming and prone to inconsistencies. By partnering with AtliQ AI, Lauki Finance aims to leverage advanced machine learning techniques to improve their credit risk management capabilities.
+## Our Approach
 
-The Indian financial sector, particularly the NBFC segment, has seen significant growth and technological adoption in recent years. This project aligns with the industry trend of using data-driven approaches to enhance decision-making processes and operational efficiency.
+To tackle these challenges, we implemented a structured approach that balanced technical rigor and business needs. This approach included:
 
-## 3. Project Objectives
+1. **Data Analysis and Preprocessing**
+2. **Feature Engineering**
+3. **Model Development**
+4. **Model Segmentation**
+5. **Error Analysis**
+6. **Iterative Improvement**
 
-The key objectives of this project are:
+---
 
-1. Develop a sophisticated credit risk model using Lauki Finance's historical loan data and default indicators.
-2. Create a credit scorecard system that categorizes loan applications into Poor, Average, Good, and Excellent categories, similar to the CIBIL scoring system.
-3. Build a user-friendly Streamlit interface for loan officers to input borrower information and obtain real-time predictions on default probabilities and credit ratings.
-4. Implement monitoring tools to continuously evaluate and improve model performance.
-5. Establish procedures for Straight Through Processing (STP) for high-confidence applications after a 2-month trial period.
-6. Provide a highly explainable model that allows business stakeholders to interpret and suggest necessary adjustments.
-7. Enhance Lauki Finance's overall credit risk management capabilities, potentially reducing default rates and improving operational efficiency.
+### 1. Data Analysis and Preprocessing
+- **Data Cleaning:** Removed missing values, handled outliers, and standardized the dataset.
+- **Exploratory Data Analysis (EDA):** Investigated feature distributions and relationships to understand which factors influence premiums.
+- **Normalization and Scaling:** Applied transformations to ensure consistent feature scales, helping models perform better.
 
-## 4. Project Phases
+### 2. Feature Engineering
+- **Risk Score:** Developed a normalized risk score based on medical history to quantify a customer’s health risks.
+- **Encoding:** Used one-hot encoding for non-ordered categorical variables (e.g., gender, region) and label encoding for ordered categories (e.g., insurance plan tiers like Bronze, Silver, Gold).
 
-### Phase 1: Development and Implementation
-1. Model Development
-2. Scorecard Creation
-3. Streamlit UI Application
+### 3. Model Development
+We tested several machine learning models to find the best approach:
+- **Linear Regression**
+- **Ridge Regression**
+- **Lasso Regression**
+- **XGBoost**
 
-### Phase 2: Monitoring and ML Ops
-1. Performance Monitoring
-2. Operational Integration
+XGBoost outperformed the others, particularly for customers aged over 25, providing superior accuracy and error control.
 
-## 5. Deliverables
+### 4. Model Segmentation
+Given the model's poor performance for younger customers, we segmented the model into two distinct groups:
+- **Model A:** Targeted customers aged 25 and under.
+- **Model B:** Handled customers aged over 25.
 
-- Functional credit risk model
-- Streamlit-based application
-- Documentation and performance reports
+This allowed us to tailor feature engineering and model optimization to each group’s specific characteristics.
 
-## 6. Timeline
+### 5. Error Analysis
+- **Error Visualization:** Analyzed error patterns using histograms and distribution plots.
+- Identified which features caused the most errors, particularly for younger customers, and guided model refinements.
 
-- Phase 1: 2 months
-- Phase 2: TBD based on Phase 1 outcomes
+### 6. Iterative Improvement
+By continuously analyzing errors and refining the models:
+- Introduced new features (e.g., lifestyle factors, genetic risk, and past claims) to enhance predictions.
+- Collaborated with business stakeholders to ensure the model aligned with real-world business needs.
 
-## 7. Budget
+---
 
-- Phase 1 Costs: $18,000 per month, max $36,000
+## Key Decisions and Rationale
 
-## 8. Key Stakeholders
+- **Model Segmentation:** We divided the model by age group because younger customers’ premium predictions were significantly less accurate. By developing separate models for customers above and below 25, we tailored our approach to improve accuracy.
+  
+- **XGBoost for Model B:** For customers over 25, XGBoost delivered excellent results, achieving 99% accuracy and minimizing prediction errors.
+  
+- **Linear Regression for Model A:** While linear regression for younger customers provided a baseline accuracy of 60%, it highlighted areas for further improvement.
+  
+- **Risk Score:** The risk score created from medical history became one of the most important features in predicting premiums.
+  
+- **Error Analysis:** Rigorous error analysis, including tracking errors by age group and feature, was crucial in identifying opportunities for refining the models.
 
-- AtliQ AI team
-- Lauki Finance team
+---
 
-## 9. Approach and Rationale
+## Findings and Results
 
-[Insert the approach and rationale text here]
+### Model B (Customers Over 25):
+- 99% accuracy using XGBoost.
+- Only 0.3% of predictions had an error margin greater than 10%, a major improvement over the initial model.
+- This model showed significantly improved performance, meeting the accuracy requirement for Shield Insurance's business needs.
 
-## 10. Streamlit Application
+### Model A (Customers 25 and Under):
+- Initial accuracy of 60% using linear regression.
+- Highlighted areas needing improvement, particularly through additional features like lifestyle factors and genetic risk.
+- Further feature engineering and data collection are necessary to bring the model’s performance to acceptable levels.
 
-The project includes a Streamlit-based web application that provides a user-friendly interface for loan officers to input borrower information and receive real-time predictions. The application uses the credit risk model to calculate the likelihood of default and assigns a credit rating based on the following categories:
+---
 
-- **Poor (300-629):** Deep Red
-- **Average (630-689):** Yellow
-- **Good (690-719):** Green
-- **Excellent (720 and above):** Deep Green
+## Overall Insights:
 
-### Instructions
+- **Age** is a key determinant in predicting insurance premiums, and different age groups require different models for optimal performance.
+- **Medical history** is an important predictor of insurance premiums, especially when encoded as a risk score.
+- **Segmentation** of models based on age was critical in achieving high accuracy for older customers while identifying paths to improvement for younger customers.
 
-1. **Input your details** in the fields provided on the web application.
-2. **Click "Calculate Risk"** to see the credit risk assessment.
-3. **Interpret the results** based on the color-coded metrics displayed.
+---
 
-## 11. Conclusion
+## Requirements and How They Were Achieved
 
-This project will significantly enhance Lauki Finance's credit risk management capabilities, enabling more accurate and efficient lending decisions. By leveraging machine learning techniques and a user-friendly interface, the project aligns with the industry's best practices and the growing trend toward data-driven decision-making in financial services.
+### Requirements:
+1. **Accurate Premium Prediction:** Achieve high model accuracy (>97%) to ensure precise premium calculations.
+2. **Error Control:** Ensure that at least 95% of predictions have an error margin of less than 10%.
+3. **Cloud Deployment:** Make the model accessible to underwriters via a cloud-based solution.
+4. **Segmented Models:** Address the performance issues for younger customers (25 and under) with a tailored solution.
 
-## 12. How to Use app 
-Use this link to access the app
-https://erick-yegon-credit-risk-modeling-project.streamlit.app/
+### Achievements:
+- **High Accuracy:** Model B for customers over 25 achieved 99% accuracy using XGBoost, surpassing the 97% target.
+- **Error Control:** With only 0.3% of predictions exceeding the 10% error margin for Model B, we far exceeded the 95% goal.
+- **Streamlit Deployment:** We deployed the model on Streamlit, providing a web-based application accessible to insurance underwriters. 
+- **Model Segmentation:** By creating Model A and Model B, we addressed the unique challenges posed by different age groups, improving accuracy for older customers and setting a baseline for younger customers.
+
+---
+
+## Next Steps
+
+1. **Data Collection:** Gather additional data on lifestyle factors, genetic risk, and past insurance claims to improve the accuracy of Model A (younger customers).
+2. **Model Refinement:** Continue refining Model A by experimenting with additional features and improving the accuracy for customers aged 25 and under.
+3. **Production Pipeline:** Implement a full production pipeline that automatically routes predictions through the appropriate model (Model A or B) based on the customer’s age.
+4. **Scaling:** Optimize the Streamlit deployment for larger datasets and more concurrent users.
+
+---
+
+By meeting the project’s requirements through thoughtful segmentation, ongoing model improvement, and cloud deployment, we’ve significantly enhanced Shield Insurance’s ability to predict insurance premiums. While we have achieved optimal performance for customers over 25, there remains ongoing work to improve predictions for younger customers, ensuring the same level of accuracy across all segments.
