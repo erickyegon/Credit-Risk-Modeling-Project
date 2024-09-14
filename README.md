@@ -1,125 +1,136 @@
 # Insurance Premium Prediction Project
 
-## Problem Statement
+## Project Background
 
-Shield Insurance Company faced challenges in accurately predicting insurance premiums for its customers, particularly for younger age groups (25 and under). The existing model had significant error rates, leading to customer dissatisfaction and operational inefficiencies.
+Shield Insurance Company, operating in the insurance industry for over 20 years, faced a challenge in accurately predicting insurance premiums for its customers, particularly for younger age groups (25 and under). The company offers various insurance plans based on customer risk profiles and medical histories, but inaccurate premium predictions led to customer dissatisfaction and operational inefficiencies.
 
-### Key Issues:
-- The overall model accuracy was 92%, but certain customer segments experienced high error rates.
-- 30% of predictions had error margins greater than 10%.
-- Some predictions had error margins as high as 87%.
-- The model performed poorly for customers aged 25 and under, requiring a more tailored solution for this group.
+Key business metrics include:
+- **Active Years:** 20+
+- **Business Model:** Insurance services for individual and business clients
+- **Key Metrics:** Customer retention, premium accuracy, claims ratio
 
----
-
-## Our Approach
-
-To tackle these challenges, we implemented a structured approach that balanced technical rigor and business needs. This approach included:
-
-1. **Data Analysis and Preprocessing**
-2. **Feature Engineering**
-3. **Model Development**
-4. **Model Segmentation**
-5. **Error Analysis**
-6. **Iterative Improvement**
+The company's primary focus is ensuring fair and accurate premium pricing across all customer segments, with particular attention to younger customers, where the highest error margins were observed.
 
 ---
 
-### 1. Data Analysis and Preprocessing
-- **Data Cleaning:** Removed missing values, handled outliers, and standardized the dataset.
-- **Exploratory Data Analysis (EDA):** Investigated feature distributions and relationships to understand which factors influence premiums.
-- **Normalization and Scaling:** Applied transformations to ensure consistent feature scales, helping models perform better.
+## Insights and Recommendations:
 
-### 2. Feature Engineering
-- **Risk Score:** Developed a normalized risk score based on medical history to quantify a customer’s health risks.
-- **Encoding:** Used one-hot encoding for non-ordered categorical variables (e.g., gender, region) and label encoding for ordered categories (e.g., insurance plan tiers like Bronze, Silver, Gold).
+### Category 1: Model Performance
+- **Main Insight 1:** The existing model had a 92% overall accuracy, but 30% of predictions had error margins exceeding 10%.
+- **Main Insight 2:** Some predictions, especially for younger customers (25 and under), had error margins as high as 87%.
+- **Main Insight 3:** The XGBoost model used for customers over 25 achieved a 99% accuracy rate.
+- **Main Insight 4:** Linear regression, used for younger customers, provided a baseline accuracy of 60%, indicating the need for further improvements in this segment.
 
-### 3. Model Development
-We tested several machine learning models to find the best approach:
-- **Linear Regression**
-- **Ridge Regression**
-- **Lasso Regression**
-- **XGBoost**
+### Category 2: Customer Segmentation
+- **Main Insight 1:** Segmenting the model by age group led to a significant reduction in prediction errors for older customers.
+- **Main Insight 2:** Model B, tailored for customers over 25, significantly improved prediction accuracy, meeting the company’s goal for high accuracy (>97%).
+- **Main Insight 3:** Model A, targeted at younger customers, identified areas for improvement, particularly in incorporating lifestyle factors and genetic risk scores.
+- **Main Insight 4:** Segmentation allowed for more tailored feature engineering, improving the relevance of predictions across different age groups.
 
-XGBoost outperformed the others, particularly for customers aged over 25, providing superior accuracy and error control.
+### Category 3: Error Analysis and Feature Importance
+- **Main Insight 1:** Error analysis identified specific features, such as medical history and lifestyle, that caused the most prediction errors for younger customers.
+- **Main Insight 2:** Introducing a risk score based on medical history improved model performance, contributing significantly to accuracy.
+- **Main Insight 3:** Error rates were analyzed using histograms and distribution plots, identifying patterns that helped refine the models.
+- **Main Insight 4:** Iterative improvements through continuous error analysis and feedback from stakeholders led to better alignment with business needs.
 
-### 4. Model Segmentation
-Given the model's poor performance for younger customers, we segmented the model into two distinct groups:
-- **Model A:** Targeted customers aged 25 and under.
-- **Model B:** Handled customers aged over 25.
-
-This allowed us to tailor feature engineering and model optimization to each group’s specific characteristics.
-
-### 5. Error Analysis
-- **Error Visualization:** Analyzed error patterns using histograms and distribution plots.
-- Identified which features caused the most errors, particularly for younger customers, and guided model refinements.
-
-### 6. Iterative Improvement
-By continuously analyzing errors and refining the models:
-- Introduced new features (e.g., lifestyle factors, genetic risk, and past claims) to enhance predictions.
-- Collaborated with business stakeholders to ensure the model aligned with real-world business needs.
+### Category 4: Cloud Deployment and Model Access
+- **Main Insight 1:** The model was successfully deployed using Streamlit, providing real-time premium predictions for insurance underwriters.
+- **Main Insight 2:** Cloud deployment ensures that underwriters can access the model from any location, streamlining operations and improving efficiency.
+- **Main Insight 3:** By optimizing for larger datasets and multiple users, the Streamlit deployment will scale as usage increases.
+- **Main Insight 4:** The model’s deployment on Streamlit ensures seamless integration with the company’s operational workflows.
 
 ---
 
-## Key Decisions and Rationale
+## Data Structure & Initial Checks
 
-- **Model Segmentation:** We divided the model by age group because younger customers’ premium predictions were significantly less accurate. By developing separate models for customers above and below 25, we tailored our approach to improve accuracy.
+The company's main database structure consists of four tables: 
+- **Table 1: Customers** - Contains demographic and medical history data.
+- **Table 2: Policies** - Records of the insurance policies held by each customer.
+- **Table 3: Claims** - Data on insurance claims made by customers.
+- **Table 4: Premiums** - Details on premium amounts and historical predictions.
+
+[Entity Relationship Diagram here]
+
+---
+
+## Executive Summary
+
+### Overview of Findings
+The overarching findings from the analysis suggest that a segmented model approach is necessary for accurate premium prediction. For customers over 25, XGBoost provided highly accurate predictions, while for customers aged 25 and under, additional feature engineering and data collection are required. Age and medical history were key factors in determining premium accuracy.
+
+**Three Key Insights:**
+1. Age-based segmentation is critical for improving prediction accuracy.
+2. Medical history, especially when encoded as a risk score, significantly impacts premium prediction accuracy.
+3. Cloud deployment via Streamlit enhanced accessibility for underwriters, improving operational efficiency.
+
+[Visualization: Snapshot of the overall premium prediction accuracy trends]
+
+---
+
+## Insights Deep Dive
+
+### Category 1: Model Performance
+- **Main Insight 1:** The overall model achieved 92% accuracy, but younger customers experienced higher error rates.
+- **Main Insight 2:** XGBoost provided 99% accuracy for older customers, surpassing the 97% target.
+- **Main Insight 3:** Linear regression for younger customers (Model A) achieved only 60% accuracy.
+- **Main Insight 4:** Continuous model refinement is required to improve predictions for younger age groups.
+
+[Visualization specific to Model Performance]
+
+### Category 2: Customer Segmentation
+- **Main Insight 1:** Segmenting by age groups improved the model's accuracy and reduced error rates.
+- **Main Insight 2:** The risk score created from medical history proved essential in improving predictions.
+- **Main Insight 3:** Feature engineering, such as encoding lifestyle factors, is necessary to improve the accuracy of Model A.
+- **Main Insight 4:** Segmentation allowed the model to cater to distinct age groups' characteristics, enhancing overall accuracy.
+
+[Visualization specific to Customer Segmentation]
+
+### Category 3: Error Analysis and Feature Importance
+- **Main Insight 1:** Error patterns revealed a need for better feature representation for younger customers.
+- **Main Insight 2:** The risk score feature contributed significantly to model performance improvements for all age groups.
+- **Main Insight 3:** Histograms and distribution plots helped identify and analyze error patterns.
+- **Main Insight 4:** New features, such as genetic risk and past claims, will further improve model performance.
+
+[Visualization specific to Error Analysis]
+
+### Category 4: Cloud Deployment and Model Access
+- **Main Insight 1:** The Streamlit deployment allows real-time premium predictions for insurance underwriters.
+- **Main Insight 2:** Cloud deployment ensures accessibility from any location, streamlining operational workflows.
+- **Main Insight 3:** Scaling the Streamlit deployment for larger datasets will improve performance as usage grows.
+- **Main Insight 4:** Integrating with the company’s systems ensures a seamless transition for operational staff.
+
+[Visualization specific to Deployment]
+
+---
+
+## Recommendations:
+
+Based on the insights and findings above, we recommend the [Stakeholder Team] consider the following:
+
+- **Observation:** Model A accuracy is suboptimal for customers aged 25 and under.  
+  **Recommendation:** Further data collection and feature engineering (e.g., lifestyle factors) are necessary to improve Model A.
   
-- **XGBoost for Model B:** For customers over 25, XGBoost delivered excellent results, achieving 99% accuracy and minimizing prediction errors.
-  
-- **Linear Regression for Model A:** While linear regression for younger customers provided a baseline accuracy of 60%, it highlighted areas for further improvement.
-  
-- **Risk Score:** The risk score created from medical history became one of the most important features in predicting premiums.
-  
-- **Error Analysis:** Rigorous error analysis, including tracking errors by age group and feature, was crucial in identifying opportunities for refining the models.
+- **Observation:** Model B has achieved optimal accuracy for older customers.  
+  **Recommendation:** Focus on maintaining and scaling Model B’s performance as more data becomes available.
+
+- **Observation:** Real-time predictions are crucial for operational efficiency.  
+  **Recommendation:** Continue enhancing the Streamlit deployment to handle more data and users as the company scales.
+
+- **Observation:** Error analysis has identified critical areas for improvement.  
+  **Recommendation:** Focus on improving the risk score calculation and incorporating new features like genetic risk.
 
 ---
 
-## Findings and Results
+## Assumptions and Caveats:
 
-### Model B (Customers Over 25):
-- 99% accuracy using XGBoost.
-- Only 0.3% of predictions had an error margin greater than 10%, a major improvement over the initial model.
-- This model showed significantly improved performance, meeting the accuracy requirement for Shield Insurance's business needs.
+Throughout the analysis, several assumptions were made to address challenges with the data. These assumptions include:
 
-### Model A (Customers 25 and Under):
-- Initial accuracy of 60% using linear regression.
-- Highlighted areas needing improvement, particularly through additional features like lifestyle factors and genetic risk.
-- Further feature engineering and data collection are necessary to bring the model’s performance to acceptable levels.
+- **Assumption 1:** Missing values for certain demographic fields were replaced with the median values for customers in similar categories.
+- **Assumption 2:** Medical history data from 2021 was missing and imputed using historical trends and available data from 2020.
+- **Assumption 3:** Outliers with extremely high premium predictions were removed to ensure model performance accuracy.
 
 ---
 
-## Overall Insights:
+## Conclusion
 
-- **Age** is a key determinant in predicting insurance premiums, and different age groups require different models for optimal performance.
-- **Medical history** is an important predictor of insurance premiums, especially when encoded as a risk score.
-- **Segmentation** of models based on age was critical in achieving high accuracy for older customers while identifying paths to improvement for younger customers.
-
----
-
-## Requirements and How They Were Achieved
-
-### Requirements:
-1. **Accurate Premium Prediction:** Achieve high model accuracy (>97%) to ensure precise premium calculations.
-2. **Error Control:** Ensure that at least 95% of predictions have an error margin of less than 10%.
-3. **Cloud Deployment:** Make the model accessible to underwriters via a cloud-based solution.
-4. **Segmented Models:** Address the performance issues for younger customers (25 and under) with a tailored solution.
-
-### Achievements:
-- **High Accuracy:** Model B for customers over 25 achieved 99% accuracy using XGBoost, surpassing the 97% target.
-- **Error Control:** With only 0.3% of predictions exceeding the 10% error margin for Model B, we far exceeded the 95% goal.
-- **Streamlit Deployment:** We deployed the model on Streamlit, providing a web-based application accessible to insurance underwriters. 
-- **Model Segmentation:** By creating Model A and Model B, we addressed the unique challenges posed by different age groups, improving accuracy for older customers and setting a baseline for younger customers.
-
----
-
-## Next Steps
-
-1. **Data Collection:** Gather additional data on lifestyle factors, genetic risk, and past insurance claims to improve the accuracy of Model A (younger customers).
-2. **Model Refinement:** Continue refining Model A by experimenting with additional features and improving the accuracy for customers aged 25 and under.
-3. **Production Pipeline:** Implement a full production pipeline that automatically routes predictions through the appropriate model (Model A or B) based on the customer’s age.
-4. **Scaling:** Optimize the Streamlit deployment for larger datasets and more concurrent users.
-
----
-
-By meeting the project’s requirements through thoughtful segmentation, ongoing model improvement, and cloud deployment, we’ve significantly enhanced Shield Insurance’s ability to predict insurance premiums. While we have achieved optimal performance for customers over 25, there remains ongoing work to improve predictions for younger customers, ensuring the same level of accuracy across all segments.
+By using a segmented model approach, tailored feature engineering, and deploying the model via Streamlit, we have significantly improved Shield Insurance’s ability to predict insurance premiums. While Model B achieved optimal accuracy, Model A requires further refinement. These efforts will continue to ensure accurate predictions for all customer segments, enhancing overall customer satisfaction and operational efficiency.
